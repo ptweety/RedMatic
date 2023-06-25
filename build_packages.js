@@ -14,8 +14,7 @@ if (tarch !== 'armv7l') {
 const blacklist = [
     'node-red',
     'npm',
-    'ain2',
-    '@node-red-contrib-themes/midnight-red'
+    'ain2'
 ];
 
 const extraFiles = {

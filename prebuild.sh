@@ -24,9 +24,9 @@ case "$ARCH" in
 esac
 
 if [ $ARCH == "i686" ]; then
-  JQ_CMD='del(.dependencies."node-red-contrib-johnny-five",.dependencies.npm,.dependencies."node-red",.dependencies."@node-red-contrib-themes/midnight-red")'
+  JQ_CMD='del(.dependencies."node-red-contrib-johnny-five",.dependencies.npm,.dependencies."node-red")'
 else
-  JQ_CMD='del(.dependencies.npm,.dependencies."node-red",.dependencies."@node-red-contrib-themes/midnight-red")'
+  JQ_CMD='del(.dependencies.npm,.dependencies."node-red")'
 fi
 
 cat addon_files/redmatic/lib/package.json | jq $JQ_CMD > $DEST/package.json

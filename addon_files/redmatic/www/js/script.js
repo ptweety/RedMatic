@@ -404,13 +404,13 @@ $(document).ready(() => {
             $projects.prop('disabled', true);
         }
 
-        if (config.editorTheme.page) {
-            switch (config.editorTheme.page.css) {
-                case '/usr/local/addons/redmatic/lib/node_modules/@node-red-contrib-themes/midnight-red/theme.css':
-                    $theme.val('midnight-red');
-                    break;
-            }
-        }
+        // if (config.editorTheme.page) {
+        //     switch (config.editorTheme.page.css) {
+        //         case '/usr/local/addons/redmatic/lib/node_modules/@node-red-contrib-themes/midnight-red/theme.css':
+        //             $theme.val('midnight-red');
+        //             break;
+        //     }
+        // }
 
         // Migration from 1.x to 2.x
         if (config.contextStorage.default && config.contextStorage.default.module === 'localfilesystem') {
@@ -457,19 +457,19 @@ $(document).ready(() => {
         }
     });
 
-    $theme.change(() => {
-        switch ($theme.val()) {
-            case 'midnight-red':
-                config.editorTheme.page = {
-                    css: '/usr/local/addons/redmatic/lib/node_modules/@node-red-contrib-themes/midnight-red/theme.css'
-                };
-                break;
+    // $theme.change(() => {
+    //     switch ($theme.val()) {
+    //         case 'midnight-red':
+    //             config.editorTheme.page = {
+    //                 css: '/usr/local/addons/redmatic/lib/node_modules/@node-red-contrib-themes/midnight-red/theme.css'
+    //             };
+    //             break;
 
-            default:
-                delete config.editorTheme.page;
-        }
-        save();
-    });
+    //         default:
+    //             delete config.editorTheme.page;
+    //     }
+    //     save();
+    // });
 
     $contextStorageDefault.change(() => {
         if (!config.contextStorage) {
