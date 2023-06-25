@@ -1,4 +1,4 @@
-const major = 'v16';
+const major = 'v18';
 
 const request = require('sync-request');
 const common = require(__dirname + '/package.json');

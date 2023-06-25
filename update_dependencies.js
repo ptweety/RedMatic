@@ -41,7 +41,7 @@ async function compareVersions(dir) {
                 });
                 if (response.confirmed) {
                     dependencies[pkg] = latest;
-                    pkgs.combined.dependencies[pkg] = `0.0.0 - ${latest}`;
+                    pkgs.combined.peerDependencies[pkg] = `0.0.0 - ${latest}`;
                     const file = path.join('addon_files/redmatic', dir, 'package.json')
                     await fs.writeFile(path.join(__dirname, 'package.json'), JSON.stringify(pkgs.combined, null, '  '));
                     await fs.writeFile(path.join(__dirname, file), JSON.stringify(pkgs[dir], null, '  '));
