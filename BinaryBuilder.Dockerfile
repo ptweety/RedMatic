@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-ARG NODE_VERSION=16
+ARG NODE_VERSION=18
 ARG VARIANT=bullseye
 
 FROM node:$NODE_VERSION-$VARIANT as base
@@ -19,7 +19,7 @@ WORKDIR /app
 
 COPY package.json build_packages.js ./
 
-RUN apt update\
+RUN apt update \
     && apt install -y jq libavahi-compat-libdnssd-dev libudev-dev \
     && rm -rf /var/lib/apt/lists/* \
     && echo "export VERSION_ADDON=`jq -r '.version' package.json`" >> /envfile \
@@ -60,8 +60,8 @@ RUN echo "installing node modules..." \
             && cat package.json.tmp | jq 'del(.dependencies."node-red-contrib-johnny-five",.dependencies."node-red-contrib-rcswitch2")' >  package.json \
             && rm package.json.tmp ; \
         fi \
-    && npm install --no-package-lock --omit=dev --omit=optional --global-style \
-    && npm install --silent --no-package-lock --omit=dev --global-style ain2 \
+    && npm install --no-package-lock --omit=dev --omit=optional --install-strategy=shallow \
+    && npm install --silent --no-package-lock --omit=dev --install-strategy=shallow ain2 \
     && if [ "${ARCH}" = "amd64" ] ; then \
             echo "installing unix-dgram..." \
             && npm install --silent --no-package-lock --no-save --prefix=./node_modules/ain2 unix-dgram ; \
@@ -69,7 +69,7 @@ RUN echo "installing node modules..." \
 
 RUN echo "installing additional Node-RED nodes..." \
     && cd build/redmatic/var \
-    && npm install --silent --no-package-lock --omit=dev --omit=optional --global-style
+    && npm install --silent --no-package-lock --omit=dev --omit=optional --install-strategy=shallow
 
 RUN echo "installing www node modules" \
     && cd build/redmatic/www \
@@ -92,7 +92,7 @@ RUN mkdir dist \
     && echo "adapt Node-RED..." \
     && cd build \
     && INSTALLER=redmatic/lib/node_modules/node-red/node_modules/@node-red/registry/lib/installer.js \
-    && sed "s/var args = \['install'/var args = ['install','--no-package-lock','--global-style'/" ${INSTALLER} > ${INSTALLER}.tmp && mv ${INSTALLER}.tmp ${INSTALLER} \
+    && sed "s/var args = \['install'/var args = ['install','--no-package-lock','--install-strategy=shallow'/" ${INSTALLER} > ${INSTALLER}.tmp && mv ${INSTALLER}.tmp ${INSTALLER} \
     && sed "s/var args = \['remove'/var args = ['remove','--no-package-lock'/" ${INSTALLER} > ${INSTALLER}.tmp && mv ${INSTALLER}.tmp ${INSTALLER} \
     && if [ "${ARCH}" = "armv7l" ] ; then \
             ADDON_FILE=redmatic-${VERSION_ADDON}.tar.gz ; \
