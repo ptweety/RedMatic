@@ -12,43 +12,28 @@ echo "git diff $MODIFIED"
 
 echo "creating RELEASE_BODY.md"
 
-DOWNLOAD="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz"
-DOWNLOAD_I686="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz"
-DOWNLOAD_X86_64="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-x86_64-$VERSION_ADDON.tar.gz"
-DOWNLOAD_ARMV6L="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-armv6l-$VERSION_ADDON.tar.gz"
-DOWNLOAD_AARCH64="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-aarch64-$VERSION_ADDON.tar.gz"
+DOWNLOAD="https://github.com/ptweety/RedMatic/releases/download/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz"
+DOWNLOAD_AMD64="https://github.com/ptweety/RedMatic/releases/download/v$VERSION_ADDON/redmatic-amd64-$VERSION_ADDON.tar.gz"
+DOWNLOAD_ARM64="https://github.com/ptweety/RedMatic/releases/download/v$VERSION_ADDON/redmatic-arm64-$VERSION_ADDON.tar.gz"
 
 cat >RELEASE_BODY.md <<EOL
 ### Downloads
 
 #### CCU3, piVCCU3 und RaspberryMatic Varianten _rpi2_, _tinkerboard_ und _oci_arm_ (armv7l)
-  [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
+    [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/ptweety/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
 EOL
 
-if [ -f $BUILD_DIR/dist/redmatic-aarch64-$VERSION_ADDON.tar.gz ]; then
+if [ -f $BUILD_DIR/dist/redmatic-arm64-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic (>= 3.53.34.20201121) Varianten _rpi3_, _rpi4_ und _oci_arm64_ (aarch64)
-  [![Downloads redmatic-aarch64-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-aarch64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_AARCH64)
-EOL
-fi
-if [ -f $BUILD_DIR/dist/redmatic-armv6l-$VERSION_ADDON.tar.gz ]; then
-cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic Variante _rpi0_ (armv6l)
-  [![Downloads redmatic-armv6l-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-armv6l-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_ARMV6L)
+#### RaspberryMatic (>= 3.53.34.20201121) Varianten _rpi3_, _rpi4_ und _oci_arm64_ (arm64)
+    [![Downloads redmatic-arm64-$VERSION_ADDON](https://img.shields.io/github/downloads/ptweety/RedMatic/v$VERSION_ADDON/redmatic-arm64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_ARM64)
 EOL
 fi
 
-if [ -f $BUILD_DIR/dist/redmatic-i686-$VERSION_ADDON.tar.gz ]; then
+if [ -f $BUILD_DIR/dist/redmatic-amd64-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic Varianten _ova_ und _intelnuc_ (i686)
-  [![Downloads redmatic-i686-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_I686)
-EOL
-fi
-
-if [ -f $BUILD_DIR/dist/redmatic-x86_64-$VERSION_ADDON.tar.gz ]; then
-cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic (>= 3.53.34.20201121) Varianten _ova_, _intelnuc_ und _oci_amd64_ (x86_64)
-  [![Downloads redmatic-x86_64-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-x86_64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_X86_64)
+#### RaspberryMatic (>= 3.53.34.20201121) Varianten _ova_, _intelnuc_ und _oci_amd64_ (amd64)
+    [![Downloads redmatic-amd64-$VERSION_ADDON](https://img.shields.io/github/downloads/ptweety/RedMatic/v$VERSION_ADDON/redmatic-amd64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_AMD64)
 EOL
 fi
 
@@ -69,7 +54,7 @@ git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' \
 cat >>RELEASE_BODY.md <<EOL
 
 
-**[Change History](https://github.com/rdmtc/RedMatic/wiki/CHANGE_HISTORY)**
+**[Change History](https://github.com/ptweety/RedMatic/wiki/CHANGE_HISTORY)**
 
 
 ### Module Versions
@@ -109,9 +94,7 @@ cat >>RELEASE_BODY.md <<EOL
 ### Build
 EOL
 
-if [ $TRAVIS_BUILD_ID ]; then
-    echo -e "[Travis Build #$TRAVIS_BUILD_NUMBER](https://travis-ci.org/rdmtc/RedMatic/builds/$TRAVIS_BUILD_ID)" >> RELEASE_BODY.md
-elif [ $GITHUB_RUN_ID ]; then
+if [ $GITHUB_RUN_ID ]; then
     echo -e "[Github Action $GITHUB_WORKFLOW #$GITHUB_RUN_NUMBER](https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)" >> RELEASE_BODY.md
 else
     echo -e "\n\nCustom build `git rev-parse --abbrev-ref HEAD` `git rev-parse HEAD` $MODIFIED `date '+%Y-%m-%d %H:%M:%S'`" >> RELEASE_BODY.md

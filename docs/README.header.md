@@ -2,8 +2,8 @@
 
 <br>
 
-[![Current Release](https://img.shields.io/github/release/rdmtc/RedMatic.svg?colorB=4cc61e)](https://github.com/rdmtc/RedMatic/releases/latest)
-[![Dependencies Status](https://david-dm.org/rdmtc/redmatic/status.svg)](https://david-dm.org/rdmtc/redmatic)
+[![Current Release](https://img.shields.io/github/release/ptweety/RedMatic.svg?colorB=4cc61e)](https://github.com/ptweety/RedMatic/releases/latest)
+[![Dependencies Status](https://david-dm.org/ptweety/redmatic/status.svg)](https://david-dm.org/ptweety/redmatic)
 [![Installs](https://telemetry.redmatic.de/total.svg)](https://telemetry.redmatic.de/#36500)
 
 
@@ -12,5 +12,5 @@
 [RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)**
 <br><br>
 <sub>[Click here for 🇬🇧🇺🇸 english readme](README.en.md)</sub>
-### [🚀 Schnellstart](#voraussetzungen)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[📚 Dokumentation](https://github.com/rdmtc/RedMatic/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[📦 Download](https://github.com/rdmtc/RedMatic/releases/latest)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[🚑 Support](#support-mitarbeit)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[👮 Lizenzen](#lizenzen)
+### [🚀 Schnellstart](#voraussetzungen)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[📚 Dokumentation](https://github.com/ptweety/RedMatic/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[📦 Download](https://github.com/ptweety/RedMatic/releases/latest)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[🚑 Support](#support-mitarbeit)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[👮 Lizenzen](#lizenzen)
 ___

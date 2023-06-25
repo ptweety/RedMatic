@@ -2,8 +2,8 @@
 
 <br>
 
-[![Current Release](https://img.shields.io/github/release/rdmtc/RedMatic.svg?colorB=4cc61e)](https://github.com/rdmtc/RedMatic/releases/latest)
-[![Dependencies Status](https://david-dm.org/rdmtc/redmatic/status.svg)](https://david-dm.org/rdmtc/redmatic)
+[![Current Release](https://img.shields.io/github/release/ptweety/RedMatic.svg?colorB=4cc61e)](https://github.com/ptweety/RedMatic/releases/latest)
+[![Dependencies Status](https://david-dm.org/ptweety/redmatic/status.svg)](https://david-dm.org/ptweety/redmatic)
 [![Installs](https://telemetry.redmatic.de/total.svg)](https://telemetry.redmatic.de/#36500)
 
 

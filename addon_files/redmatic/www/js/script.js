@@ -95,7 +95,7 @@ $(document).ready(() => {
             $.get(`update_check.cgi?sid=${sid}`, (available, success) => {
                 available = $.trim(available);
                 if (available !== 'n/a' && current.redmatic !== available) {
-                    $('#update-link').html(`<a href="https://github.com/rdmtc/RedMatic/releases/latest" target="_blank">Download Version ${available}</a>`);
+                    $('#update-link').html(`<a href="https://github.com/ptweety/RedMatic/releases/latest" target="_blank">Download Version ${available}</a>`);
                     $('#update-notify').show();
                 }
             });
