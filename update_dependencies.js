@@ -66,7 +66,7 @@ async function compareVersions(dir) {
 
 }
 async function checkDirs() {
-    for (dir of dirs) {
+    for (const dir of dirs) {
         await compareVersions(dir);
     }
     if (updateCount === 0) {
