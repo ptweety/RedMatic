@@ -1,8 +1,9 @@
 const fs = require('fs');
 const cp = require('child_process');
 const crypto = require('crypto');
-const pkgLib = require(__dirname + '/addon_files/redmatic/lib/package.json');
+const pkgLib = require(__dirname + '/build/redmatic/lib/package.json');
 const redmaticVersion = require(__dirname + '/package.json').version;
+const redmaticHome = require(__dirname + '/package.json').homepage;
 
 let tarch = process.argv[2] || 'armv7l';
 let arch = '';
@@ -47,15 +48,15 @@ Object.keys(pkgLib.dependencies).forEach(name => {
         return;
     }
 
-    remove.push(__dirname + '/addon_tmp/redmatic/lib/node_modules/' + name);
+    remove.push(__dirname + '/build/redmatic/lib/node_modules/' + name);
 
-    if ((tarch === 'i686' || tarch === 'x86_64') && name === 'node-red-contrib-johnny-five') {
+    if (tarch === 'amd64' && name === 'node-red-contrib-johnny-five') {
         return;
     }
 
     let pkgJson;
     try {
-        pkgJson = require(__dirname + '/addon_tmp/redmatic/lib/node_modules/' + name + '/package.json');
+        pkgJson = require(__dirname + '/build/redmatic/lib/node_modules/' + name + '/package.json');
     } catch (err) {
         console.error(err.message);
         return;
@@ -64,11 +65,11 @@ Object.keys(pkgLib.dependencies).forEach(name => {
 
     const filename = 'redmatic' + arch + '-pkg-' + name + '-' + version + '.tar.gz';
 
-    let cmd = 'tar -C ' + __dirname + '/addon_tmp/redmatic/ -czf ' + __dirname + '/dist/' + filename + ' lib/node_modules/' + name;
+    let cmd = 'tar -C ' + __dirname + '/build/redmatic/ -czf ' + __dirname + '/dist/' + filename + ' lib/node_modules/' + name;
     if (extraFiles[name]) {
         extraFiles[name].forEach(file => {
             cmd += ' ' + file;
-            remove.push(__dirname + '/addon_tmp/redmatic/' + file);
+            remove.push(__dirname + '/build/redmatic/' + file);
         });
     }
     console.log(`  ${filename}`);
@@ -76,7 +77,7 @@ Object.keys(pkgLib.dependencies).forEach(name => {
         cp.execSync(cmd);
         repo[name] = {
             integrity: checksum(fs.readFileSync(__dirname + '/dist/' + filename)),
-            resolved: 'https://github.com/rdmtc/RedMatic/releases/download/v' + redmaticVersion + '/' + filename,
+            resolved: redmaticHome + '/releases/download/v' + redmaticVersion + '/' + filename,
             version,
             description,
             keywords,
@@ -88,7 +89,7 @@ Object.keys(pkgLib.dependencies).forEach(name => {
     }
 });
 
-fs.writeFileSync(__dirname + '/addon_tmp/redmatic/lib/pkg-repo.json', JSON.stringify(repo, null, '  '));
+fs.writeFileSync(__dirname + '/build/redmatic/lib/pkg-repo.json', JSON.stringify(repo, null, '  '));
 
 remove.forEach(path => {
     console.log('remove', path);
