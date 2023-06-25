@@ -66,6 +66,7 @@ RUN echo "installing node modules..." \
             echo "installing unix-dgram..." \
             && npm install --silent --no-package-lock --no-save --prefix=./node_modules/ain2 unix-dgram ; \
         fi
+    # && find "node_modules/**/{win,darwin,android}*" -name "*.node" -delete &>/dev/null
 
 RUN echo "installing additional Node-RED nodes..." \
     && cd build/redmatic/var \
@@ -94,23 +95,12 @@ RUN mkdir dist \
     && INSTALLER=redmatic/lib/node_modules/node-red/node_modules/@node-red/registry/lib/installer.js \
     && sed "s/var args = \['install'/var args = ['install','--no-package-lock','--install-strategy=shallow'/" ${INSTALLER} > ${INSTALLER}.tmp && mv ${INSTALLER}.tmp ${INSTALLER} \
     && sed "s/var args = \['remove'/var args = ['remove','--no-package-lock'/" ${INSTALLER} > ${INSTALLER}.tmp && mv ${INSTALLER}.tmp ${INSTALLER} \
-    && if [ "${ARCH}" = "armv7l" ] ; then \
-            ADDON_FILE=redmatic-${VERSION_ADDON}.tar.gz ; \
-        else \
-            ADDON_FILE=redmatic-${ARCH}-${VERSION_ADDON}.tar.gz ; \
-        fi \
+    && ADDON_FILE=redmatic-${ARCH}-${VERSION_ADDON}.tar.gz \
     && echo "compressing addon package $ADDON_FILE ..." \
     && rm redmatic/lib/package.json \
-    && if [ "${OSTYPE}" = "darwin"* ] ; then \
-            if [[ -f /usr/local/bin/gtar ]] ; then \
-                gtar --exclude=.DS_Store --owner=root --group=root -czf ../dist/${ADDON_FILE} * ; \
-            else \
-                tar --exclude=.DS_Store -czf ../dist/${ADDON_FILE} * ; \
-            fi \
-        else \
-            tar --owner=root --group=root -czf ../dist/${ADDON_FILE} * ; \
-        fi \
+    && tar --owner=root --group=root -czf ../dist/${ADDON_FILE} * \
     && sha256sum ../dist/${ADDON_FILE} > ../dist/${ADDON_FILE}.sha256 \
     && echo "done."
 
-CMD ["/bin/bash"]
+FROM scratch AS export
+COPY --from=builder /app/dist /

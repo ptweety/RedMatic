@@ -1,8 +1,8 @@
 #!/bin/bash
 
 BUILD_DIR=`cd ${0%/*} && pwd -P`
-ADDON_TMP=$BUILD_DIR/addon_tmp
-MODULES_DIR=$ADDON_TMP/redmatic/lib/node_modules
+LIB_MODULES_DIR=$BUILD_DIR/addon_files/redmatic/lib/node_modules
+VAR_MODULES_DIR=$BUILD_DIR/addon_files/redmatic/var/node_modules
 
 VERSION_ADDON=`jq -r '.version' package.json`
 NODE_VERSION=`jq -r '.engines.node' package.json`
@@ -19,8 +19,11 @@ DOWNLOAD_ARM64="https://github.com/ptweety/RedMatic/releases/download/v$VERSION_
 cat >RELEASE_BODY.md <<EOL
 ### Downloads
 
-#### CCU3, piVCCU3 und RaspberryMatic Varianten _rpi2_, _tinkerboard_ und _oci_arm_ (armv7l)
-    [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/ptweety/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
+#### CCU3 (armv7l)
+    Derzeit nicht unterstützt, da Node eine glibc >= 2.28 benötigt
+
+#### piVCCU3 und RaspberryMatic Varianten _rpi2_, _tinkerboard_ und _oci_arm_ (armv7l)
+    [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/ptweety/RedMatic/v$VERSION_ADDON/redmatic-armv7l-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
 EOL
 
 if [ -f $BUILD_DIR/dist/redmatic-arm64-$VERSION_ADDON.tar.gz ]; then
@@ -85,8 +88,8 @@ scan_dir()
     done
 }
 
-scan_dir $MODULES_DIR
-scan_dir $ADDON_TMP/redmatic/var/node_modules
+scan_dir $LIB_MODULES_DIR
+scan_dir $VAR_MODULES_DIR
 
 cat >>RELEASE_BODY.md <<EOL
 
