@@ -1,7 +1,7 @@
 const path = require('path');
 const dgram = require('dgram');
 
-const Rega = require(path.join(__dirname, '..', 'var/node_modules/node-red-contrib-ccu/node_modules/homematic-rega'));
+const Rega = require(path.join(__dirname, '..', 'var/node_modules/@ptweety/node-red-contrib-ccu/node_modules/homematic-rega'));
 
 const regaHost = '127.0.0.1';
 const regaAuthPort = 1998;
